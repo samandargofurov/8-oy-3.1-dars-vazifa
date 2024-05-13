@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import TodoInfo from "./components/TodoInfo";
 
-
 interface Task {
   id?: number;
   title?:string;
@@ -19,7 +18,7 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks))
-  },[])
+  },[tasks])
 
   function handleAdd(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
@@ -29,10 +28,10 @@ function App() {
         title: add?.title
       }
       setTasks([...tasks, taskItem])
-      setAdd({title: ''})
     } else {
       alert('please, enter task')
     }
+    setAdd({title: ''})
   };
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -40,20 +39,16 @@ function App() {
     setAdd({...add, title: event.target.value})
   }
 
-  function handleClick() {
-    if (document.getElementById("my_modal_1")) {
-      document.getElementById("my_modal_1").close();
-    }
-  }
-
-
   return (
     <>
       <div className="container w-2/4 mx-auto mt-16">
         <div className="flex items-center justify-between">
+          {/* <button className="btn btn-active btn-primary" onClick={handleAdd}>
+            Add Task
+          </button> */}
           <button
             className="btn btn-primary"
-            onClick={handleClick}
+            onClick={() => document.getElementById("my_modal_1").showModal()}
           >
             Add Task
           </button>
@@ -76,8 +71,14 @@ function App() {
             <option value={"false"}>Inactive</option>
           </select>
         </div>
-        <div>
-          <TodoInfo></TodoInfo>
+        <div className="bg-gray-200 p-4 rounded-lg mt-10 flex flex-col gap-3">
+          {
+            tasks.length > 0 && tasks.map((el: any, index: any) => {
+              return (
+                <TodoInfo key={index} task={el.title}></TodoInfo>
+              )
+            })
+          }
         </div>
       </div>
     </>

@@ -2,15 +2,23 @@ import { FC } from "react";
 import { PiTrashSimpleFill } from "react-icons/pi";
 import { MdModeEditOutline } from "react-icons/md";
 
-const TodoInfo:FC = () => {
-  const handleRemove = () => {};
+interface Task {
+    id: number,
+    title: string
+}
+
+const TodoInfo:FC<Task> = (props) => {
+
+  const handleRemove = () => {
+    
+  };
 
   const handleEdit = () => {};
 
   return (
     <>
       <div className="container w-full mx-auto">
-        <div className="bg-gray-200 p-4 rounded-lg mt-10">
+        <div>
           <div className="flex flex-col gap-5">
 
             <div className="bg-white rounded-md p-3 flex justify-between">
@@ -25,7 +33,7 @@ const TodoInfo:FC = () => {
                   </label>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <h1 className="text-sm">Lorem ipsum dolor sit amet.</h1>
+                  <h1 className="text-sm">{props.title}</h1>
                   <p className="text-xs">Lorem, ipsum.</p>
                 </div>
               </div>
